@@ -4,7 +4,7 @@
  Live Demo: https://d3e5arjoobi964.cloudfront.net/
  지금 접속해 촬영부터 문구 생성, 출력 준비까지 실제 사용자 플로우를 그대로 체험할 수 있습니다.
 
-![image-20260114131254284](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20260114131254284.png)
+![image-20260114131254284](docs/readme-images/image-20260114131254284.png)
 
 ------
 
@@ -34,7 +34,7 @@ LIFELOG는 “사진만 남는 포토부스”를 **“기억까지 남는 포�
 
 LIFELOG는 문구 생성과 별개로, 촬영 순간의 맥락을 기반으로 해시태그를 자동 추천합니다. 운영자는 별도 입력 없이도 출력물 및 공유용 결과물에 바로 활용할 수 있습니다.
 
-![image-20260114132721637](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20260114132721637.png)
+![image-20260114132721637](docs/readme-images/image-20260114132721637.png)
 
 **관계 기반 해시태그 (Relationship Tags)**
  사용자가 선택한 관계(커플, 친구, 가족, 동료 등)를 기준으로 톤에 맞는 해시태그 6개를 생성합니다. 사진의 분위기와 어울리도록 과도한 유행어는 줄이고, 다양한 상황에서 재사용 가능한 키워드를 우선 추천합니다.
@@ -45,7 +45,7 @@ LIFELOG는 문구 생성과 별개로, 촬영 순간의 맥락을 기반으로 �
 - 친구: #Besties #친구랑찰칵 #오늘도웃음 #추억저장 #우리끼리 #한장더
 - 가족: #FamilyTime #가족사진 #오늘의기록 #함께한순간 #우리집추억 #기념샷
 
-![image-20260114133034345](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20260114133034345.png)
+![image-20260114133034345](docs/readme-images/image-20260114133034345.png)
 
 **위치 기반 해시태그 (Location Tags)**
  촬영 위치를 기반으로 ‘동네 분위기’와 ‘장소 맥락’을 반영한 해시태그를 생성합니다. 행정구역, 랜드마크, 상권 분위기 등 실제 체감과 가까운 키워드를 우선하며, 위치가 해외로 잘못 인식되는 경우는 자동으로 필터링합니다.
@@ -62,14 +62,14 @@ LIFELOG는 문구 생성과 별개로, 촬영 순간의 맥락을 기반으로 �
 
 LIFELOG의 핵심은 “사진을 보고 말이 나오게 만드는 것”입니다. 단순한 고정 문구가 아니라, 사진 속 장면과 촬영 순간의 맥락 정보를 함께 해석해 한 줄 문구를 생성합니다. 결과 문구는 출력물에 바로 적용할 수 있도록 짧고 완결된 형태로 구성됩니다.
 
-![image-20260114133424356](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20260114133424356.png)
+![image-20260114133424356](docs/readme-images/image-20260114133424356.png)
 
 **생성 입력(컨텍스트 구성)**
 
 - 사진 분석 결과: 인물 구도, 표정/분위기, 장면의 전반적인 느낌 등
 - 메타데이터: 날짜, 위치, 날씨, 사용자가 선택한 관계/모드
 
-![image-20260114133607874](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20260114133607874.png)
+![image-20260114133607874](docs/readme-images/image-20260114133607874.png)
 
 이 정보를 결합해 “그 순간을 설명하는 문장”이 되도록 생성하며, 같은 사진이라도 선택한 모드에 따라 결과 톤이 달라질 수 있습니다.
 
@@ -102,7 +102,7 @@ LIFELOG의 핵심은 “사진을 보고 말이 나오게 만드는 것”입니
 
 ## 기술 구성
 
-![image-20260114134512742](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20260114134512742.png)
+![image-20260114134512742](docs/readme-images/image-20260114134512742.png)
 
 **Frontend: React + Vite**
 
