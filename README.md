@@ -1,8 +1,10 @@
-# LIFELOG (EST 주관 AI 부트캠프 우수작)
+# LIFELOG (EST 주관 AI 프로젝트 우수작)
 
 마지막 업데이트: 2026-01-13
- Live Demo: https://d3e5arjoobi964.cloudfront.net/
- 지금 접속해 촬영부터 문구 생성, 출력 준비까지 실제 사용자 플로우를 그대로 체험할 수 있습니다.
+
+Live Demo: https://d3e5arjoobi964.cloudfront.net/
+
+지금 접속해 촬영부터 문구 생성, 출력 준비까지 실제 사용자 플로우를 그대로 체험할 수 있습니다.
 
 ![image-20260114131254284](docs/readme-images/image-20260114131254284.png)
 
