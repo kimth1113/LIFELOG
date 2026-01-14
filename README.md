@@ -1,114 +1,382 @@
-﻿# LIFELOG (EST 二쇨? AI 遺?몄틺???곗닔??
+# JEJU-LOG — 제주 여행을 “기억 가능한 스토리”로 바꾸는 AI 포토부스
 
-留덉?留??낅뜲?댄듃: 2026-01-13
- Live Demo: https://d3e5arjoobi964.cloudfront.net/
- 吏湲??묒냽??珥ъ쁺遺??臾멸뎄 ?앹꽦, 異쒕젰 以鍮꾧퉴吏 ?ㅼ젣 ?ъ슜???뚮줈?곕? 洹몃?濡?泥댄뿕?????덉뒿?덈떎.
+제주에서 찍는 사진은 많지만, “이 순간을 이야기로 남기는 경험”은 부족합니다.  
+**JEJU-LOG**는 포토부스 + AI로 사진 속 맥락(관계/날씨/시간/관광지)을 결합해 **스토리텔링 문구**를 생성하고, **제주어 톤 변환**, **다국어 지원**, **여행일지 생성**까지 이어지는 기록 경험을 제공합니다.
 
-![image-20260114131254284](docs/images/image-20260114131254284.png)
+---
+---
 
-------
+## 사용법(Quick Start)
 
-## ??以??뚭컻
+### 1) GitHub에서 프로젝트 받기
+처음 받는 경우(클론):
+```bash
+git clone <YOUR_REPO_URL>
+cd <REPO_DIR>
+```
 
-LIFELOG???쒖궗吏꾨쭔 ?⑤뒗 ?ы넗遺?ㅲ앸? **?쒓린?듦퉴吏 ?⑤뒗 ?ы넗遺?ㅲ?*濡?諛붽씀??AI 湲곕컲 珥ъ쁺 寃쏀뿕?낅땲??
+이미 클론해둔 경우(최신으로 받기):
+```bash
+git pull
+```
 
-------
+> `<YOUR_REPO_URL>` / `<REPO_DIR>`는 본인 레포 정보로 바꿔서 사용하세요.
 
-## ?쒗뭹 媛쒖슂
+### 2) 필수 툴 설치(로컬 개발 환경)
+- **Git**: 설치 후 `git --version` 확인
+- **Node.js**: (권장) LTS 버전 설치 후 `node -v`, `npm -v` 확인  
+  - Windows/macOS: 공식 설치 프로그램 사용  
+  - macOS/Linux: (선택) `nvm`으로 설치/버전 관리
+- **Python**: 프로젝트에 맞는 버전 설치 후 `python --version` 확인  
+  - Windows: 공식 설치 프로그램 사용(“Add Python to PATH” 체크 권장)  
+  - macOS/Linux: (선택) `pyenv`로 설치/버전 관리
+- **DB**
+  - 현재 README 기준: **SQLite3** 사용(별도 설치 없이 Django로 사용 가능)
+  - TODO: **PostgreSQL** 전환 시 로컬 설치 + 계정/DB 생성 필요
 
-?ы넗遺???ъ쭊? ?쒓컙??吏?섎㈃ ?μ냼? 媛먯젙, 留λ씫???먮젮吏묐땲?? LIFELOG??珥ъ쁺 ?쒓컙???좎쭨, ?꾩튂, ?좎뵪, ?좏깮??媛먯젙怨?紐⑤뱶瑜??④퍡 湲곕줉?섍퀬, 洹?留λ씫??湲곕컲?쇰줈 AI媛 ??以?臾멸뎄? ?댁떆?쒓렇瑜??앹꽦???ъ쭊怨??④퍡 異쒕젰 媛?ν븳 寃곌낵臾쇱쓣 留뚮벊?덈떎. **?ъ쭊? 洹몃?濡??④린?? ?쒓렇?좎쓽 遺꾩쐞湲겸앹? ?쒖씠?쇨린?앷퉴吏 ?④퍡 蹂댁〈?섎룄濡??ㅺ퀎?덉뒿?덈떎.**
+### 3) 환경변수(.env) 설정
+`.env.example`을 참고해 `.env`를 생성하고, **본인 API KEY**를 입력하세요.
 
-------
+- 백엔드(`server/`)에서 읽는 키:
+  - `OPENAI_API_KEY` (문구/일지 생성)
+  - `ALAN_CLIENT_ID` (제주어 변환)
+- 프론트엔드(`client/`)에서 쓰는 키/설정:
+  - `VITE_API_BASE_URL` (백엔드 주소)
 
-## ????섍꼍
+> ⚠️ `.env` 파일은 **절대 GitHub에 커밋하지 마세요.** (gitignore 필수)
 
-- 15?몄튂 ?댁긽湲?紐⑤땲?곗뿉 理쒖쟻?붾맂 ?ㅼ삤?ㅽ겕??UI
-- ???곗튂 ?곸뿭, 理쒖냼 ?④퀎, 鍮좊Ⅸ ?좏깮 ?먮쫫??以묒떖?쇰줈 ?ㅺ퀎
-- ?ы넗遺???댁쁺 ?섍꼍?먯꽌 利됱떆 ?곸슜 媛?ν븳 ?붾㈃ 援ъ꽦
+### 4) Backend 실행 (Django)
+```bash
+cd server
+python -m venv .venv
 
-------
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+# source .venv/bin/activate
 
-## ?듭떖 AI 湲곕뒫 2媛吏
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
 
-#### 1. 愿怨꽷룹쐞移?湲곕컲 ?댁떆?쒓렇 ?앹꽦
+### 5) Frontend 실행 (React)
+```bash
+cd client/JEJULOG-FE
+npm install
+npm run dev
+```
 
-LIFELOG??臾멸뎄 ?앹꽦怨?蹂꾧컻濡? 珥ъ쁺 ?쒓컙??留λ씫??湲곕컲?쇰줈 ?댁떆?쒓렇瑜??먮룞 異붿쿇?⑸땲?? ?댁쁺?먮뒗 蹂꾨룄 ?낅젰 ?놁씠??異쒕젰臾?諛?怨듭쑀??寃곌낵臾쇱뿉 諛붾줈 ?쒖슜?????덉뒿?덈떎.
+### 6) 정상 동작 확인
+- 프론트에서 요청이 백엔드로 잘 가는지 `VITE_API_BASE_URL` 값을 확인하세요.
+- 기본 백엔드 주소: `http://localhost:8000`
 
-![image-20260114132721637](docs/images/image-20260114132721637.png)
-
-**愿怨?湲곕컲 ?댁떆?쒓렇 (Relationship Tags)**
- ?ъ슜?먭? ?좏깮??愿怨?而ㅽ뵆, 移쒓뎄, 媛議? ?숇즺 ??瑜?湲곗??쇰줈 ?ㅼ뿉 留욌뒗 ?댁떆?쒓렇 6媛쒕? ?앹꽦?⑸땲?? ?ъ쭊??遺꾩쐞湲곗? ?댁슱由щ룄濡?怨쇰룄???좏뻾?대뒗 以꾩씠怨? ?ㅼ뼇???곹솴?먯꽌 ?ъ궗??媛?ν븳 ?ㅼ썙?쒕? ?곗꽑 異붿쿇?⑸땲??
-
-?덉떆
-
-- 而ㅽ뵆: #CoupleShot #?곗씠?멸린濡?#?ㅻ뒛?섏슦由?#?섏씠?쒗븳??#LoveMoment #?곕━?ъ쭊
-- 移쒓뎄: #Besties #移쒓뎄?묒같移?#?ㅻ뒛?꾩썐??#異붿뼲???#?곕━?쇰━ #?쒖옣??- 媛議? #FamilyTime #媛議깆궗吏?#?ㅻ뒛?섍린濡?#?④퍡?쒖닚媛?#?곕━吏묒텛??#湲곕뀗??
-![image-20260114133034345](docs/images/image-20260114133034345.png)
-
-**?꾩튂 湲곕컲 ?댁떆?쒓렇 (Location Tags)**
- 珥ъ쁺 ?꾩튂瑜?湲곕컲?쇰줈 ?섎룞??遺꾩쐞湲겸숈? ?섏옣??留λ씫?숈쓣 諛섏쁺???댁떆?쒓렇瑜??앹꽦?⑸땲?? ?됱젙援ъ뿭, ?쒕뱶留덊겕, ?곴텒 遺꾩쐞湲????ㅼ젣 泥닿컧怨?媛源뚯슫 ?ㅼ썙?쒕? ?곗꽑?섎ŉ, ?꾩튂媛 ?댁쇅濡??섎せ ?몄떇?섎뒗 寃쎌슦???먮룞?쇰줈 ?꾪꽣留곹빀?덈떎.
-
-?덉떆
-
-- ?쒖슱/?깆닔: #?깆닔??#?쒖슱?ロ뵆 #?ㅻ뒛?섏궛梨?#?꾩떆媛먯꽦 #SeoulVibes #嫄곕━湲곕줉
-- ?댁슫?: #?댁슫? #諛붾떎?욎뿉??#遺?곗뿬??#?뚮룄媛먯꽦 #BusanMoments #OceanMood
-- ?띾?: #?띾? #?ㅻ뒛?섎Т??#諛ㅺ굅由ш컧??#移쒓뎄?묐뜲?댄듃 #StreetVibes #Hopping
+---
 
 
+## 실행 방법 (상세, 프론트/백 분리)
 
-#### 2. ?ъ쭊 湲곕컲 臾멸뎄 ?앹꽦 (GPT 硫?곕え??
+### 요구사항(Prerequisites)
+- Node.js: **TODO**
+- Python: **TODO** (현재 로컬에서 `3.14.x` 사용 중)
+- DB:
+  - 현재: **SQLite3**
+  - TODO: PostgreSQL 전환 시 `DATABASE_URL` 및 Django settings 변경
 
-LIFELOG???듭떖? ?쒖궗吏꾩쓣 蹂닿퀬 留먯씠 ?섏삤寃?留뚮뱶??寃꺿앹엯?덈떎. ?⑥닚??怨좎젙 臾멸뎄媛 ?꾨땲?? ?ъ쭊 ???λ㈃怨?珥ъ쁺 ?쒓컙??留λ씫 ?뺣낫瑜??④퍡 ?댁꽍????以?臾멸뎄瑜??앹꽦?⑸땲?? 寃곌낵 臾멸뎄??異쒕젰臾쇱뿉 諛붾줈 ?곸슜?????덈룄濡?吏㏐퀬 ?꾧껐???뺥깭濡?援ъ꽦?⑸땲??
+### 환경변수
+`.env.example` 참고 후 `.env` 생성
 
-![image-20260114133424356](docs/images/image-20260114133424356.png)
+```env
+# Django
+SECRET_KEY=django-insecure-change-me-in-production
+DEBUG=True
 
-**?앹꽦 ?낅젰(而⑦뀓?ㅽ듃 援ъ꽦)**
+# AI API Keys
+OPENAI_API_KEY=
+ALAN_CLIENT_ID=
+ALAN_BASE_URL=https://kdt-api-function.azurewebsites.net
 
-- ?ъ쭊 遺꾩꽍 寃곌낵: ?몃Ъ 援щ룄, ?쒖젙/遺꾩쐞湲? ?λ㈃???꾨컲?곸씤 ?먮굦 ??- 硫뷀??곗씠?? ?좎쭨, ?꾩튂, ?좎뵪, ?ъ슜?먭? ?좏깮??愿怨?紐⑤뱶
+# Frontend API base
+VITE_API_BASE_URL=http://localhost:8000
 
-![image-20260114133607874](docs/images/image-20260114133607874.png)
+# Dataset Path (optional)
+# DATASET_DIR=D:/relation_dataset/train
+```
 
-???뺣낫瑜?寃고빀???쒓렇 ?쒓컙???ㅻ챸?섎뒗 臾몄옣?앹씠 ?섎룄濡??앹꽦?섎ŉ, 媛숈? ?ъ쭊?대씪???좏깮??紐⑤뱶???곕씪 寃곌낵 ?ㅼ씠 ?щ씪吏????덉뒿?덈떎.
+### DB 준비
+현재 SQLite3 사용
 
-------
+```bash
+cd server
+python manage.py migrate
+```
 
-## 由щ툕?쒕뵫
+### Backend 실행
+```bash
+cd server
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+# source .venv/bin/activate
 
-- JEJULOG?먯꽌 LIFELOG濡?由щ툕?쒕뵫 ?꾨즺
-- ?쒖＜??而⑥뀎(?꾨＼?꾪듃, RAG, ????留ㅻ꼫)???꾨㈃ ?쒓굅?섍퀬, **?꾧뎅 ?대뵒?쒕뱺 ?쇨???寃쏀뿕???쒓났?섎룄濡??ш뎄??*?덉뒿?덈떎.
+pip install -r requirements.txt
+python manage.py runserver
+```
 
-------
+### Frontend 실행
+```bash
+cd client/JEJULOG-FE
+npm install
+npm run dev
+```
 
-## 諛고룷 ?뺣낫
+### AI 모델/가중치
+- YOLO: `models/yolov8n.pt`
+- 관계 모델: `server/models/relation_classifier.pt`
+- TODO: 관계 모델 재학습 시 `server/tools/train_relation_classifier.py` 실행
 
-- 諛고룷 留곹겕: https://d3e5arjoobi964.cloudfront.net/
-- 2026.01.13 泥?諛고룷 踰꾩쟾
+### 연동 확인
+- `VITE_API_BASE_URL`가 백엔드 URL과 일치하는지 확인
+- 기본: `http://localhost:8000`
 
-------
+---
 
-## 諛고룷 援ъ꽦
+## 기획/배경
 
-- ?꾨줎?몄뿏??   S3 + CloudFront濡??뺤쟻 鍮뚮뱶 諛고룷. ???멸퀎 罹먯떛???듯빐 ?ㅼ삤?ㅽ겕 ?섍꼍?먯꽌 鍮좊Ⅸ 濡쒕뵫???쒓났?⑸땲??
-- 諛깆뿏??   Elastic Beanstalk?먯꽌 API ?쒕쾭 ?댁쁺. AI ?붿껌 ?ㅼ??ㅽ듃?덉씠?? ?낅줈??諛?寃곌낵 愿由щ? ?대떦?⑸땲??
-- ??μ냼
-   S3??珥ъ쁺 ?ъ쭊怨??앹꽦 臾멸뎄/硫뷀??곗씠?곕? ??ν빀?덈떎. ?꾨┛??寃곌낵 ?쒓났 諛?蹂닿????꾪븳 援ъ“?낅땲??
+### 문제 정의
+- 제주 인증 관광은 늘었지만, 기념품은 남아도 **스토리는 약합니다**.
+- 즉석 사진/굿즈는 많지만 **개인적인 맥락(관계·순간·장소)**이 반영된 기록은 드뭅니다.
 
-------
+### 왜 포토부스 + AI인가?
+- 포토부스는 여행 흐름을 해치지 않고 **즉시 사용 가능한 물리적 경험**입니다.
+- AI는 사진 + 관계 + 시간/날씨 + 관광지 정보를 결합해 **개인화된 스토리**를 생성할 수 있습니다.
+- 결과적으로 “기념품”을 넘어 “기억의 기록물”로 확장됩니다.
 
-## 湲곗닠 援ъ꽦
+---
 
-![image-20260114134512742](docs/images/image-20260114134512742.png)
+## 해결책 요약
+- **스토리텔링 문구 생성**: 사진 + 관계 + 해시태그 + 관광지 RAG 기반
+- **제주어 톤 변환**: 표준어 → 제주어(방언)로 *의미 보존* 변환
+- **RAG 근거 제공**: 관광지 문서를 근거로 문구 생성(환각 방지 방향)
+- **다국어 지원**: HuggingFace 번역 모델 기반
+- **앱 여행일지**: 일정 기간의 기록을 요약한 여행일지 생성
 
-**Frontend: React + Vite**
+---
 
-- ?ㅼ삤?ㅽ겕??理쒖쟻?붾맂 ??붾㈃ UI
-- ?꾩튂/媛먯젙/紐⑤뱶 ?좏깮 諛?珥ъ쁺 ?뚮줈???쒓났
+## 주요 기능 (Feature List)
+- **F1** 다국어 번역 (HuggingFace)
+- **F2** 관계 추론 (YOLO bbox + 관계 분류 모델)
+- **F3** 관계+관광지 기반 해시태그 추천
+- **F4** 문구 생성 (GPT + RAG 컨텍스트 통합)
+- **F5** 제주어 변환 (ALAN LLM)
+- **F6** 기간 일지 생성 (GPT 기반 요약)
 
-**Backend: Django + DRF**
+기능 명세서: `docs/spec/functional-spec.md`
 
-- ?ъ쭊 諛?硫뷀??곗씠???낅줈??泥섎━
-- AI 臾멸뎄/?댁떆?쒓렇 ?앹꽦 ?붿껌 諛?寃곌낵 愿由?
-**Storage: AWS S3**
+---
 
-- ?ъ쭊 寃곌낵臾?諛??앹꽦 臾멸뎄/硫뷀??곗씠?????- ?꾨┛?몄슜 寃곌낵臾?蹂닿?
+## AI 기능 상세
 
+> 각 기능마다 **왜 필요한지 / 어떻게 동작하는지 / 입력·출력 예시 / 실패·폴백**을 포함합니다.
+
+### F1. 다국어 번역 (HuggingFace M2M100)
+**왜 필요한지**  
+외국인 관광객과 SNS 공유를 위한 다국어 문구 지원.
+
+**어떻게 동작하는지**
+- HuggingFace **M2M100** 모델 사용(예: ko → en/ja/zh)
+- (선택) 입력 언어 감지 후 목적 언어로 변환
+
+**입력/출력 예시**
+- 입력: `성산일출봉에서 맞이한 아침`
+- 출력: `A morning welcomed at Seongsan Ilchulbong`
+
+**실패/폴백**
+- 모델 실패 시: 친화 메시지 + 원문 반환  
+  - TODO: 실패/타임아웃 정책 문서화
+
+---
+
+### F2. 관계 추론 (YOLO bbox + 관계 모델)
+**왜 필요한지**  
+관계(혼자/커플/친구/가족)는 문구/해시태그/톤의 핵심 조건입니다.
+
+**어떻게 동작하는지**
+1. YOLO로 사람 bbox 추출
+2. bbox 통계/분포 특징(예: 24차원) → MLP 분류기
+3. confidence 산출, 예외 시 `unknown` 처리
+
+**입력/출력 예시**
+- 입력: 이미지 1장
+- 출력:
+  ```json
+  { "relation_label": "couple", "confidence": 0.82, "person_count": 2 }
+  ```
+
+**실패/폴백**
+- 사람 미검출 → `unknown`
+- 모델 미로딩 → 사람 수 기반 규칙 분류(간단 폴백)
+
+---
+
+### F3. 해시태그 추천 (관계 + 관광지)
+**왜 필요한지**  
+SNS 공유 최적화 + 검색성과 확장성 확보.
+
+**어떻게 동작하는지**
+- 관계 + 장소 기반 규칙 조합
+- (옵션) LLM 보강  
+  - TODO: 실제 적용 여부/정책 명시
+
+**입력/출력 예시**
+- 입력: `relation=couple, place=성산일출봉`
+- 출력:
+  ```json
+  ["#제주", "#성산일출봉", "#커플여행", "#일출", "#힐링"]
+  ```
+
+**실패/폴백**
+- 장소 미확인 시: 일반 제주 태그 세트 반환
+
+---
+
+### F4. 문구 생성 (GPT + RAG 컨텍스트)
+**왜 필요한지**  
+“사진 한 장”을 “의미 있는 기록”으로 변환하는 핵심 기능.
+
+**어떻게 동작하는지**
+1. 관광지 RAG 문서 Top-K 검색
+2. 관계/날씨/시간/해시태그/모드 결합 프롬프트 구성
+3. GPT로 문구 생성
+4. 근거(citations) 저장
+
+**입력/출력 예시**
+- 입력: `photo, place=성산일출봉, relation=solo, hashtags, mode=조언`
+- 출력:
+  ```json
+  {
+    "caption_text": "새벽 공기 속 성산일출봉은 마음을 잠시 멈추게 했다. 가끔은 멈춰서 숨을 고르는 것도 여행이다.",
+    "citations": [{ "doc_id": "..." }]
+  }
+  ```
+
+**실패/폴백**
+- RAG 결과 없음 → 기본 제주 서정 템플릿 사용
+- LLM 실패 → 고정 템플릿 문구 반환
+
+---
+
+### F5. 제주어 변환 (ALAN LLM)
+**왜 필요한지**  
+제주 로컬 경험의 깊이를 강화하고 관광 기억을 지역성 있게 표현.
+
+**어떻게 동작하는지**
+- ALAN LLM에 표준어 입력
+- 의미 보존 + 고유명사 유지
+- (옵션) 강도 조절  
+  - TODO: 강도 파라미터 정교화
+
+**입력/출력 예시**
+- 입력: `성산일출봉에서 바람이 참 좋았다`
+- 출력: `성산일출봉서 바람 진짜 좋앗주게`
+
+**실패/폴백**
+- 변환 품질 저하 시 원문 반환
+
+---
+
+### F6. 기간 여행일지 생성 (GPT)
+**왜 필요한지**  
+여행을 타임라인 기반의 기록물로 남기기 위함.
+
+**어떻게 동작하는지**
+1. DB에서 기간 내 `photo/caption/metadata` 조회
+2. 날짜/장소별 요약 구성
+3. GPT로 일지 템플릿 생성
+
+**입력/출력 예시**
+- 입력: `user_id, date_from, date_to`
+- 출력: `title, body, entries`
+
+**실패/폴백**
+- 기간 내 데이터 없음 → “기록 없음” 메시지 반환
+
+---
+
+## 지속 확장형 모델/서비스 구조
+
+JEJU-LOG는 사용 과정에서 다음 데이터가 축적됩니다:
+- 사진 메타 / 관계 라벨 / 문구 결과 / 사용자 선택(모드/재생성/선호) / 관광지 문서
+
+이를 통해:
+- 해시태그/문구 품질 개선
+- 관계 모델 재학습
+- RAG 지식 확장
+- 사용자 취향 반영(옵션)
+
+→ **지속적으로 품질이 향상되는 구조**를 지향합니다.
+
+---
+
+## 아키텍처
+
+### (A) 시스템 컴포넌트 다이어그램
+```mermaid
+flowchart LR
+  Client[JEJU-LOG Frontend (React)]
+  Server[JEJU-LOG Backend (Django)]
+  DB[(DB: SQLite3 / TODO: PostgreSQL)]
+  AI[AI Modules]
+  Ext[External APIs]
+
+  Client -->|REST API| Server
+  Server --> DB
+  Server --> AI
+  AI --> Ext
+
+  AI -->|F1 번역| HF[HuggingFace M2M100]
+  AI -->|F4 문구| GPT[OpenAI GPT]
+  AI -->|F5 제주어| ALAN[ALAN LLM]
+  AI -->|F2 관계| YOLO[YOLOv8]
+```
+
+### (B) 핵심 시퀀스 다이어그램
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant FE as JEJU-LOG FE
+  participant BE as JEJU-LOG BE
+  participant YOLO as YOLO
+  participant REL as relation_classifier
+  participant RAG as rag_db
+  participant GPT as GPT
+  participant ALAN as ALAN LLM
+  participant DB as DB
+
+  U->>FE: Upload photo
+  FE->>BE: POST /api/dialect/infer-relation (example)
+  BE->>YOLO: detect persons
+  BE->>REL: predict relation
+  REL-->>BE: relation + confidence
+  BE->>RAG: retrieve context
+  RAG-->>BE: citations
+  BE->>GPT: generate caption
+  GPT-->>BE: caption_ko
+  BE->>ALAN: convert to Jejueo (optional)
+  ALAN-->>BE: caption_jeju
+  BE->>DB: save session/outputs
+  BE-->>FE: response
+```
+
+> 참고: 위 엔드포인트는 README 예시입니다. 실제 경로는 코드 기준으로 수정하세요. (TODO)
+
+---
+
+## TODO / 한계 및 향후 개선
+- 배포 미완(컨테이너/서버리스 등)
+- PostgreSQL 전환 및 마이그레이션 정리
+- RAG 문서 업로드/관리(관리자 모드/인덱싱) 명세 및 구현 보강
+- 관계 추론 성능 개선(데이터 확장/증강/학습/검증 자동화)
+- LLM 비용/지연 최적화(캐시/리트라이/폴백 정책)
+- 개인정보(이미지) 저장/삭제 정책 명문화 및 적용
