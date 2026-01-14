@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+/static
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# API Keys and Secrets
+dialect_converter/config.py
+*.env
+.env.local
+.env.*.local
+secrets.json
+
+# Hide backend/frontend source while keeping folder structure
+/backend/**
+!/backend/**/
+!/backend/**/README.md
+/backend/**/__pycache__/**
+/frontend/**
+!/frontend/**/
+!/frontend/**/README.md
+/frontend/node_modules/**
+/frontend/.git/**
+/node_modules/**
+
